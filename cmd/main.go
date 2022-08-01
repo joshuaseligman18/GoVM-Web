@@ -1,12 +1,10 @@
 package main
 
 import (
-	// "github.com/joshuaseligman/GoVM/pkg/assembler"
-
-	"fmt"
-
 	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joshuaseligman/GoVM/pkg/assembler"
 )
 
 func main() {
@@ -19,8 +17,15 @@ func main() {
 
 func handleAsmProg(c *gin.Context) {
 	c.Request.ParseForm()
-	fmt.Println(c.Request.PostForm.Get("prog"))
-	c.JSON(http.StatusOK, gin.H {
-		"msg": "hello",
-	})
+	program := c.Request.PostForm.Get("prog")
+	bin, err := assembler.AssembleProgramAPI(program)
+	if err == nil {
+		c.JSON(http.StatusOK, gin.H {
+			"progBinary": bin,
+		})
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H {
+			"msg": err.Error(),
+		})
+	}
 }

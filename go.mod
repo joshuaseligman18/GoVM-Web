@@ -2,7 +2,7 @@ module github.com/joshuaseligman/GoVM-Web
 
 go 1.18
 
-require github.com/joshuaseligman/GoVM v0.5.0
+require github.com/joshuaseligman/GoVM v0.6.3
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
