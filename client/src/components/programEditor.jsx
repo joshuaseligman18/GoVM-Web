@@ -36,12 +36,8 @@ const ProgramEditor = () => {
 			runBtnRef.current.onclick = addProgramToQueue
 		} else {
 			// Get the error message
-			if (data.err.trim() === 'Invalid instruction') {
-				// Reset the error message to if it is an empty program
-				binRef.current.value = 'Assemble your program to see the output binary here!'
-			} else {
-				binRef.current.value = data.err
-			}
+			binRef.current.value = data.err
+
 			// Update the run program button
 			runBtnRef.current.classList.add(homeStyles.notClickable)
 			runBtnRef.current.classList.remove(homeStyles.clickable)
