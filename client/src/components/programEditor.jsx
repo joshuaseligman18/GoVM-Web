@@ -11,11 +11,16 @@ const ProgramEditor = () => {
 	const binRef = useRef(null)
 	const runBtnRef = useRef(null)
 
+	let lastProg = null
+
 	// Function that calls the API to assemble the program and output the binary
 	async function assembleProgram() {
 		// Call the API
 		const res = await fetch('http://127.0.0.1:8080/api/asmprog', {
 			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
 			body: JSON.stringify({
 				prog: progRef.current.value
 			})
@@ -25,6 +30,9 @@ const ProgramEditor = () => {
 		const data = await res.json()
 
 		if (res.status === 200) {
+			// Save the binary for future use
+			lastProg = data.binaryProg
+
 			// Convert the binary to a string and output it
 			const instrStrArr = data.binaryProg.map((instr) => hexString(instr, 8))
 			const instrStr = instrStrArr.join('\n')
@@ -50,8 +58,18 @@ const ProgramEditor = () => {
 	}
 
 	// Function that gets called to add the program to the server's queue to run
-	function addProgramToQueue() {
-		console.log('Called add program')
+	async function addProgramToQueue() {
+		const res = await fetch('http://127.0.0.1:8080/api/addprog', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				binaryProg: lastProg
+			})
+		})
+
+		console.log(await res.json())
 	}
 
 	return (
