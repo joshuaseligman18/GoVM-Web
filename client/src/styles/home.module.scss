@@ -1,0 +1,11 @@
+@import './variables.scss';
+
+.page {
+    background-color: $navy;
+    color: $silver;
+    width: 100%;
+    position: fixed;
+    top: 8%;
+    bottom: 8%;
+    display: flex;
+}
