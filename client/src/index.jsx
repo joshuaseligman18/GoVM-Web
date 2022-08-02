@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import Home from './components/home'
@@ -15,4 +15,6 @@ const App = () => {
 }
 
 // Render the application within the "app" element in the html file
-ReactDOM.render(<App />, document.getElementById('app'))
+const container = document.getElementById('app')
+const root = createRoot(container)
+root.render(<App />)
