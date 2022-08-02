@@ -1,5 +1,6 @@
 import navStyles from './../styles/navbar.module.scss'
 
+// Component for the navbar
 const Navbar = () => {
 	return (
 		<nav id={navStyles.navbar}>

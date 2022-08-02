@@ -3,6 +3,7 @@ import Navbar from './components/navbar'
 import Footer from './components/footer'
 
 
+// Main app component
 const App = () => {
 	return (
 		<>
@@ -15,4 +16,5 @@ const App = () => {
 	)
 }
 
+// Render the application within the "app" element in the html file
 ReactDOM.render(<App />, document.getElementById('app'))
