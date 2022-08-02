@@ -1,13 +1,5 @@
-@import "./variables.scss";
+@import "./global.scss";
 
 #navbar {
-    color: $silver;
-    background-color: $blue;
-    font-size: 1.25rem;
-    width: 100%;
-    height: 8%;
-    line-height: 8%;
-    text-align: center;
-    position: fixed;
     top: 0;
 }
