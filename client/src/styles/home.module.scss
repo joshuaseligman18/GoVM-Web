@@ -17,24 +17,31 @@
         text-align: center;
         margin: 0;
     }
+}
 
-    button {
-        float: center;
-        background-color: $green;
-        color: $navy;
-        border: none;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 1rem;
-        width: 45%;
-        border-radius: 10px;
-        margin-top: 1%;
-    }
+button {
+    float: center;
+    border: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    width: 45%;
+    border-radius: 10px;
+    margin-top: 1%;
+    color: $navy;
+}
 
-    button:hover {
-        cursor: pointer;
-        background-color: $red;
-        color: $silver;
-    }
+.clickable {
+    background-color: $green;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    background-color: $red;
+    color: $silver;
+}
+
+.notClickable {
+    background-color: $gray;
 }
 
 .progArea {
