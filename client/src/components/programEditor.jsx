@@ -41,16 +41,12 @@ const ProgramEditor = () => {
 
 	return (
 		<div id={homeStyles.programEditor}>
-			<div id={homeStyles.progRow}>
-				<h3>Assembly</h3>
-				<h3>Binary</h3>
-				<textarea ref={progRef} name="prog" className={homeStyles.progArea}></textarea>
-				<textarea ref={binRef} name="binary" className={homeStyles.progArea} value="Assemble your program to see the output binary here!" readOnly></textarea>
-			</div>
-			<div id={homeStyles.submitRow}>
-				<button onClick={assembleProgram}>Assemble Program</button>
-				<button>Run Program</button>
-			</div>
+			<h3>Assembly</h3>
+			<h3>Binary</h3>
+			<textarea ref={progRef} name="prog" className={homeStyles.progArea} id={homeStyles.editable}></textarea>
+			<textarea ref={binRef} name="binary" className={homeStyles.progArea} id={homeStyles.readOnly} value="Assemble your program to see the output binary here!" readOnly></textarea>
+			<button onClick={assembleProgram}>Assemble Program</button>
+			<button>Run Program</button>
 		</div>
 	)
 }
