@@ -15,11 +15,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1"
   },
-  "devDependencies": {
-    "@types/node": "^18.6.3",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6"
-  },
+  "devDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",

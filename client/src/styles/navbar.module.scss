@@ -1,0 +1,11 @@
+@import "./variables.scss";
+
+#navbar {
+    color: $silver;
+    background-color: $navy;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+}

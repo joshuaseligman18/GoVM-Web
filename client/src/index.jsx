@@ -3,11 +3,11 @@ import Navbar from './components/Navbar'
 
 
 const App = () => {
-    return (
-        <>
-            <Navbar />
-        </>
-    )
+	return (
+		<>
+			<Navbar />
+		</>
+	)
 }
 
 ReactDOM.render(<App />, document.getElementById('app'))
