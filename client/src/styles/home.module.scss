@@ -1,11 +1,62 @@
-@import './variables.scss';
+@import './global.scss';
 
-.page {
-    background-color: $navy;
-    color: $silver;
-    width: 100%;
-    position: fixed;
-    top: 8%;
-    bottom: 8%;
+#programEditor {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 45%;
+    height: 60%;
+
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.progArea {
+    background-color: $navy;
+    resize: none;
+    color: $silver;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    width: 45%;
+    height: 90%;
+}
+
+#progRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: 80%;
+    width: 100%;
+
+    h3 {
+        width: 45%;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+#submitRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+
+    button {
+        float: center;
+        background-color: $green;
+        color: $navy;
+        border: none;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1rem;
+        width: 45%;
+        border-radius: 10px;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: $red;
+        color: $silver;
+    }
 }
