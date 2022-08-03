@@ -2,7 +2,9 @@ package routes
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joshuaseligman/GoVM-Web/server/internal/govm"
@@ -64,4 +66,21 @@ func HandleAddProg(c *gin.Context) {
 			"programQueue": govmManager.GetProgramQueue().ToArray(),
 		})
 	}
+}
+
+// Function that handles obtaining the status of the queue
+func HandleQueueStatus(c *gin.Context) {
+	ticker := time.NewTicker(500 * time.Millisecond)
+	defer func() {
+		ticker.Stop()
+	}()
+
+	c.Stream(func(w io.Writer) bool {
+		select {
+		case <-ticker.C:
+			c.Header("Access-Control-Allow-Origin", "*")
+			c.SSEvent("ping", govmManager.GetProgramQueue().ToArray())
+		}
+		return true
+	})
 }
