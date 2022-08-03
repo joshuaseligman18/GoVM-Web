@@ -1,12 +1,16 @@
 package routes
 
 import (
-	"net/http"
 	"encoding/json"
-	"fmt"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joshuaseligman/GoVM-Web/server/internal/govm"
 	"github.com/joshuaseligman/GoVM/pkg/assembler"
+)
+
+var (
+	govmManager *govm.GoVMManager = govm.NewGoVMManager()
 )
 
 // Function that assembles the program and responds with the binary
@@ -53,11 +57,11 @@ func HandleAddProg(c *gin.Context) {
 		var bin RunStruct
 		json.Unmarshal(raw, &bin)
 
-		fmt.Println(bin.Binary)
+		govmManager.GetProgramQueue().Enqueue(bin.Binary)
 
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusOK, gin.H {
-			"msg": "OK",
+			"newQueue": govmManager.GetProgramQueue(),
 		})
 	}
 }
