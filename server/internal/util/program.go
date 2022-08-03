@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -19,7 +20,11 @@ func NewProgram(data *RunStruct) *Program {
 		Id: rand.Int(),
 		TimeCreated: time.Now(),
 		Prog: data.Binary,
-		Name: data.ProgName,
+	}
+	if data.ProgName == "" {
+		program.Name = fmt.Sprint(program.Id)
+	} else {
+		program.Name = data.ProgName
 	}
 	return &program
 }
