@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 #queueArea {
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -23,9 +25,29 @@
 }
 
 #queueList {
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
 }
 
-#queueStatus {
-    background-color: lime;
+.queueListItem {
+    width: 100%;
+    border: 1px solid $silver;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    
+    h3 {
+        color: $silver;
+        font-size: 1rem;
+        margin: 0;
+        padding-left: 2.5%;
+    }
+
+    h3:hover {
+        cursor: pointer;
+        background-color: rgba($color: $silver, $alpha: 0.3);
+    }
+}
+
+#statusItem {
+    background-color: red;
 }

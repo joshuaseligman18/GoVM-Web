@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import queueStyles from './../styles/queue.module.scss'
 import QueueListItem from './queueListItem'
 
 import { fetchEventSource } from '@microsoft/fetch-event-source'
+import QueueStatusItem from './queueStatusItem'
 
 const QueueArea = () => {
 
@@ -25,9 +26,7 @@ const QueueArea = () => {
                 <div id={queueStyles.queueList} className={queueStyles.queueSection}>
                     {[...queueComponents]}
                 </div>
-                <div id={queueStyles.queueStatus} className={queueStyles.queueSection}>
-                    h
-                </div>
+                <QueueStatusItem />
             </div>
         </div>
     )
