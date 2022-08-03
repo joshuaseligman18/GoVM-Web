@@ -17,7 +17,7 @@ const ProgramEditor = () => {
 	// Function that calls the API to assemble the program and output the binary
 	async function assembleProgram() {
 		// Call the API
-		const res = await fetch('http://127.0.0.1:8080/api/asmprog', {
+		const res = await fetch('/api/asmprog', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const ProgramEditor = () => {
 
 	// Function that gets called to add the program to the server's queue to run
 	async function addProgramToQueue() {
-		await fetch('http://127.0.0.1:8080/api/addprog', {
+		await fetch('/api/addprog', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

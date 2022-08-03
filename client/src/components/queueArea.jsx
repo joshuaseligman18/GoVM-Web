@@ -1,19 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import queueStyles from './../styles/queue.module.scss'
 import QueueListItem from './queueListItem'
+
+import { fetchEventSource } from '@microsoft/fetch-event-source'
 
 const QueueArea = () => {
 
     const [queueComponents, setQueueComponents] = useState([])
 
-    let eventsource = new EventSource('http://127.0.0.1:8080/api/queuestatus')
-
-    eventsource.addEventListener('ping', (e) => {
-        // Get the data and create the components
-        let newComponents = JSON.parse(e.data).map((progItem) => <QueueListItem prog={progItem} />)
-        // Rerender the area with the new programs in the queue
-        setQueueComponents(newComponents)
+    fetchEventSource('http://localhost:8080/api/queuestatus', {
+        onmessage(e) {
+            // Get the data and create the components
+            let newComponents = JSON.parse(e.data).map((progItem) => <QueueListItem key={progItem.id} prog={progItem} />)
+            // Rerender the area with the new programs in the queue
+            setQueueComponents(newComponents)
+        }
     })
 
     return (

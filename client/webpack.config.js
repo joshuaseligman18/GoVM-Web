@@ -6,25 +6,28 @@ module.exports = {
     module: {
         rules: [
             {
-                test: [/\.(js)$/, /\.(jsx)$/],
+                test: [/\.js$/, /\.jsx$/],
                 exclude: /node_modules/,
                 use: ['babel-loader']
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: [/\.s[ac]ss$/, /\.css$/],
                 use: ["style-loader", "css-loader", "sass-loader"],
             },
         ]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.scss'],
+        extensions: ['*', '.js', '.jsx', '.scss', 'css'],
     },
     output: {
         path: path.resolve(__dirname, './public'),
         filename: 'bundle.js',
     },
     devServer: {
-        port: 3000
+        port: 3000,
+        proxy: {
+            '/api': 'http://cpu-service:8080'
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({

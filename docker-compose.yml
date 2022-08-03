@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  cpu-service:
+    build: ./server
+    volumes:
+      - ./server:/usr/app
+    ports:
+      - 8080:8080
+  web-service:
+    depends_on:
+      - cpu-service
+    build: ./client
+    volumes:
+      - ./client:/usr/app
+    ports:
+      - 3000:3000

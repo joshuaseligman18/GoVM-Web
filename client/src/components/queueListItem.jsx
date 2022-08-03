@@ -2,7 +2,7 @@ const QueueListItem = (props) => {
     const prog = props.prog
 
     return (
-        <div key={prog.id}>
+        <div>
             <h3>{prog.progName}</h3>
         </div>
     )
