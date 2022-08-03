@@ -1,33 +1,27 @@
 package util
 
-import (
-	"math/rand"
-)
-
 // Struct for a node
 type ProgNode struct {
-	Id   int       `json:"id"`   // The id of the program
-	Prog []uint32  `json:"prog"`  // The value of the node
-	Next *ProgNode `json:"next"` // The next node in the list
+	Val *Program // The program to store
+	Next *ProgNode  // The next node in the list
 }
 
 // Function that creates a new node
 func NewNode(data []uint32) *ProgNode {
 	node := ProgNode{
-		Id:   rand.Int(),
-		Prog: data,
+		Val: NewProgram(data),
 	}
 	return &node
 }
 
 // Gets the value of the node
-func (node *ProgNode) GetVal() []uint32 {
-	return node.Prog
+func (node *ProgNode) GetVal() *Program {
+	return node.Val
 }
 
 // Sets the value of the node
-func (node *ProgNode) SetVal(newVal []uint32) {
-	node.Prog = newVal
+func (node *ProgNode) SetVal(newVal *Program) {
+	node.Val = newVal
 }
 
 // Gets the next node

@@ -61,7 +61,7 @@ func HandleAddProg(c *gin.Context) {
 
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusOK, gin.H {
-			"newQueue": govmManager.GetProgramQueue(),
+			"programQueue": govmManager.GetProgramQueue().ToArray(),
 		})
 	}
 }

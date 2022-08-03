@@ -1,13 +1,8 @@
 package util
 
-import (
-	"fmt"
-	"strings"
-)
-
 // Struct for a queue
 type Queue struct {
-	Head *ProgNode `json:"head"` // The head of the queue
+	Head *ProgNode // The head of the queue
 }
 
 // Creates a new empty queue
@@ -31,7 +26,7 @@ func (queue *Queue) Enqueue(val []uint32) {
 }
 
 // Removes the top element from the queue
-func (queue *Queue) Dequeue() []uint32 {
+func (queue *Queue) Dequeue() *Program {
 	if queue.Head != nil {
 		val := queue.Head.GetVal()
 		queue.Head = queue.Head.GetNext()
@@ -45,14 +40,18 @@ func (queue *Queue) GetHead() *ProgNode {
 	return queue.Head
 }
 
-// Gets the string representation of the queue
-func (queue *Queue) ToString() string {
-	var str strings.Builder
+// Converts the queue to an array for easy use on the client side
+func (queue *Queue) ToArray() []*Program {
+	// Initialize the variables we will need
+	out := make([]*Program, 0)
 	cur := queue.Head
 
+	// Add each program to the array
 	for cur != nil {
-		str.WriteString(fmt.Sprintf("{%d: %d} ", cur.Id, cur.Prog))
+		out = append(out, cur.Val)
 		cur = cur.Next
 	}
-	return str.String()
+
+	// Return the array
+	return out
 }
