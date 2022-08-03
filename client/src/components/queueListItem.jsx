@@ -3,7 +3,7 @@ const QueueListItem = (props) => {
 
     return (
         <div key={prog.id}>
-            <h3>{prog.id}</h3>
+            <h3>{prog.progName}</h3>
         </div>
     )
 }

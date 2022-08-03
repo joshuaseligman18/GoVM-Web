@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joshuaseligman/GoVM-Web/server/internal/govm"
+	"github.com/joshuaseligman/GoVM-Web/server/internal/util"
 	"github.com/joshuaseligman/GoVM/pkg/assembler"
 )
 
@@ -26,7 +27,7 @@ func HandleAsmProg(c *gin.Context) {
 		})
 	} else {
 		// Convert the raw data into the struct for the program
-		var prog ProgStruct
+		var prog util.ProgStruct
 		json.Unmarshal(raw, &prog)
 
 		// Assemble the program
@@ -56,10 +57,10 @@ func HandleAddProg(c *gin.Context) {
 		})
 	} else {
 		// Convert the raw data into the struct for the program
-		var bin RunStruct
-		json.Unmarshal(raw, &bin)
+		var prog util.RunStruct
+		json.Unmarshal(raw, &prog)
 
-		govmManager.GetProgramQueue().Enqueue(bin.Binary)
+		govmManager.GetProgramQueue().Enqueue(&prog)
 
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusOK, gin.H {

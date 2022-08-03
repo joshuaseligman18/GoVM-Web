@@ -1,8 +1,6 @@
 package govm
 
-import (
-	"github.com/joshuaseligman/GoVM-Web/server/internal/util"
-)
+import "github.com/joshuaseligman/GoVM-Web/server/internal/util"
 
 // The struct that will handle the programs and their execution
 type GoVMManager struct {

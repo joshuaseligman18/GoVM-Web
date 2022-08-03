@@ -12,7 +12,7 @@ func NewQueue() *Queue {
 }
 
 // Adds the value to the end of the queue
-func (queue *Queue) Enqueue(val []uint32) {
+func (queue *Queue) Enqueue(val *RunStruct) {
 	newNode := NewNode(val)
 	if queue.Head == nil {
 		queue.Head = newNode

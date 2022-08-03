@@ -7,7 +7,7 @@ type ProgNode struct {
 }
 
 // Function that creates a new node
-func NewNode(data []uint32) *ProgNode {
+func NewNode(data *RunStruct) *ProgNode {
 	node := ProgNode{
 		Val: NewProgram(data),
 	}

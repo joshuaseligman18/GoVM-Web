@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import homeStyles from './../styles/home.module.scss'
+import programStyles from './../styles/program.module.scss'
 import { hexString } from '../util/util'
 
 // Component for where the user can edit and assemble their programs
@@ -10,6 +10,7 @@ const ProgramEditor = () => {
 	const progRef = useRef(null)
 	const binRef = useRef(null)
 	const runBtnRef = useRef(null)
+	const progNameRef = useRef(null)
 
 	let lastProg = null
 
@@ -39,8 +40,8 @@ const ProgramEditor = () => {
 			binRef.current.value = instrStr
 
 			// Update the run program button
-			runBtnRef.current.classList.remove(homeStyles.notClickable)
-			runBtnRef.current.classList.add(homeStyles.clickable)
+			runBtnRef.current.classList.remove(programStyles.notClickable)
+			runBtnRef.current.classList.add(programStyles.clickable)
 			runBtnRef.current.onclick = addProgramToQueue
 		} else {
 			// Get the error message
@@ -51,8 +52,8 @@ const ProgramEditor = () => {
 				binRef.current.value = data.err
 			}
 			// Update the run program button
-			runBtnRef.current.classList.add(homeStyles.notClickable)
-			runBtnRef.current.classList.remove(homeStyles.clickable)
+			runBtnRef.current.classList.add(programStyles.notClickable)
+			runBtnRef.current.classList.remove(programStyles.clickable)
 			runBtnRef.current.onclick = null
 		}
 	}
@@ -65,24 +66,29 @@ const ProgramEditor = () => {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				binaryProg: lastProg
+				binaryProg: lastProg,
+				progName: progNameRef.current.value
 			})
 		})
+		progNameRef.current.value = ''
 	}
 
 	return (
-		<div id={homeStyles.programEditor}>
+		<div id={programStyles.programEditor}>
 			{/* The titles above the boxes */}
 			<h3>Assembly</h3>
 			<h3>Binary</h3>
 			
 			{/* The actual content boxes */}
-			<textarea ref={progRef} name="prog" className={homeStyles.progArea} id={homeStyles.editable}></textarea>
-			<textarea ref={binRef} name="binary" className={homeStyles.progArea} id={homeStyles.readOnly} value="Assemble your program to see the output binary here!" readOnly></textarea>
+			<textarea ref={progRef} name="prog" className={`${programStyles.progArea} ${programStyles.editable}`} id={programStyles.editable}></textarea>
+			<textarea ref={binRef} name="binary" className={programStyles.progArea} id={programStyles.readOnly} value="Assemble your program to see the output binary here!" readOnly></textarea>
 			
 			{/* The submit buttons */}
-			<button className={homeStyles.clickable} onClick={assembleProgram}>Assemble Program</button>
-			<button ref={runBtnRef} className={homeStyles.notClickable}>Run Program</button>
+			<button className={programStyles.clickable} onClick={assembleProgram}>Assemble Program</button>
+			<div id={programStyles.rightBtnArea}>
+				<input ref={progNameRef} type="text" name="progName" placeholder="Program Name" id={programStyles.progNameInput} className={programStyles.editable}></input>
+				<button ref={runBtnRef} id={programStyles.runBtn} className={programStyles.notClickable}>Run</button>
+			</div>
 		</div>
 	)
 }

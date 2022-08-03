@@ -10,14 +10,16 @@ type Program struct {
 	Id   int       `json:"id"`   // The id of the program
 	TimeCreated time.Time `json:"created"` // The time the node was created
 	Prog []uint32  `json:"prog"`  // The value of the node
+	Name string `json:"progName"` // The name of the program
 }
 
 // Function that creates a new program
-func NewProgram(data []uint32) *Program {
+func NewProgram(data *RunStruct) *Program {
 	program := Program {
 		Id: rand.Int(),
 		TimeCreated: time.Now(),
-		Prog: data,
+		Prog: data.Binary,
+		Name: data.ProgName,
 	}
 	return &program
 }
