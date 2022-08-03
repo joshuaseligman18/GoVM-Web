@@ -70,14 +70,17 @@ func HandleAddProg(c *gin.Context) {
 
 // Function that handles obtaining the status of the queue
 func HandleQueueStatus(c *gin.Context) {
+	// Update users every 500 ms
 	ticker := time.NewTicker(500 * time.Millisecond)
 	defer func() {
 		ticker.Stop()
 	}()
 
+	// Stream the updated info to the user
 	c.Stream(func(w io.Writer) bool {
 		select {
 		case <-ticker.C:
+			// Send the "ping" event to the user with the updated queue
 			c.Header("Access-Control-Allow-Origin", "*")
 			c.SSEvent("ping", govmManager.GetProgramQueue().ToArray())
 		}

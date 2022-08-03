@@ -1,0 +1,31 @@
+#queueArea {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 45%;
+    height: 40%;
+}
+
+#queueAreaTitle {
+    text-align: center;
+    margin: 0;
+    height: 10%;
+}
+
+#queues {
+    display: flex;
+    align-items: center;
+    height: 90%;
+}
+
+.queueSection {
+    width: 50%;
+    height: 100%;
+}
+
+#queueList {
+    background-color: blue;
+}
+
+#queueStatus {
+    background-color: lime;
+}

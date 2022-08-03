@@ -59,7 +59,7 @@ const ProgramEditor = () => {
 
 	// Function that gets called to add the program to the server's queue to run
 	async function addProgramToQueue() {
-		const res = await fetch('http://127.0.0.1:8080/api/addprog', {
+		await fetch('http://127.0.0.1:8080/api/addprog', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -68,8 +68,6 @@ const ProgramEditor = () => {
 				binaryProg: lastProg
 			})
 		})
-
-		console.log(await res.json())
 	}
 
 	return (
