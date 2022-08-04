@@ -6,11 +6,11 @@ import React from 'react'
 // Main app component
 const App = () => {
 	return (
-		<React.StrictMode>
+		<>
 			<Navbar />
 			<Home />
 			<Footer />
-		</React.StrictMode>
+		</>
 	)
 }
 

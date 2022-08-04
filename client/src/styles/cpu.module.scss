@@ -1,7 +1,6 @@
 @import './variables.scss';
 
 #cpuStatusArea {
-    background-color: red;
     width: 50%;
     height: 100%;
     display: flex;
@@ -27,4 +26,24 @@ table {
 td {
     width: 50%;
     text-align: center;
+}
+
+#memArea {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    align-items: center;
+    justify-content: space-evenly;
+
+    input {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: $navy;
+        color: $silver;
+    }
+
+    input:focus {
+        outline: 0 !important;
+        border-color: $red;
+        box-shadow: 0 0 5px $red;
+    }
 }

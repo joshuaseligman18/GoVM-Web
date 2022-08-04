@@ -1,30 +1,34 @@
+import { useState, useRef } from 'react'
+
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 
 import cpuStyles from './../styles/cpu.module.scss'
 
+import { hexString } from './../util/util'
+
 const CpuStatus = () => {
+
+    const [status, setStatus] = useState({})
+    const memRef = useRef(null)
 
     fetchEventSource('http://localhost:8080/api/cpustatus', {
         onmessage(e) {
-            console.log(JSON.parse(e.data))
-            // Get the data and old components
-            // let newData = JSON.parse(e.data)
-            // let oldComponents = queueComponents
-            // let newComponents = []
-            // newData.forEach(progItem => {
-            //     // If the old component already exists, we want to keep it
-            //     let result = oldComponents.filter((elem) => elem.props.prog.id === progItem.id)
-            //     if (result.length === 1) {
-            //         newComponents.push(elem)
-            //     } else {
-            //         // Otherwise create a new component
-            //         newComponents.push(<QueueListItem key={progItem.id} prog={progItem} />)
-            //     }
-            // });
-            // // Rerender the area with the new programs in the queue
-            // setQueueComponents(newComponents)
+            setStatus({...JSON.parse(e.data)})
         }
     })
+
+    function getMemoryAddress(e) {
+        const hex = /[0-9ABCDEF]/gi
+        let addrStr = e.target.value
+        if (addrStr.match(hex)) {
+            let addr = parseInt(addrStr, 16)
+            console.log(status)
+            if (status !== undefined && addr < status.memory.ram.length) {
+                let val = status.memory.ram[addr]
+                memRef.current.innerHTML = hexString(val, 16)
+            }
+        }
+    }
 
     return (
         <div id={cpuStyles.cpuStatusArea}>
@@ -35,6 +39,11 @@ const CpuStatus = () => {
                     <td>ACC: 0x0000000000000000</td>
                 </tr>
             </table>
+            <div id={cpuStyles.memArea}>
+                <h3>Memory</h3>
+                <input type="text" placeholder="Address" size="16" maxLength="16" onChange={getMemoryAddress}></input>
+                <p ref={memRef}>0x0000000000000000</p>
+            </div>
         </div>
     )
 }
