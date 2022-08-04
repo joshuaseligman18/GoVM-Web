@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, createContext, useEffect } from 'react'
 
 import queueStyles from './../styles/queue.module.scss'
 import QueueListItem from './queueListItem'
 
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import QueueStatusItem from './queueStatusItem'
+import QueueSelectionContext from './queueSelectionContext'
 
 const QueueArea = () => {
 
     const [queueComponents, setQueueComponents] = useState([])
+    const [selected, setSelected] = useState(0)
 
     fetchEventSource('http://localhost:8080/api/queuestatus', {
         onmessage(e) {
@@ -36,7 +38,9 @@ const QueueArea = () => {
             <h3 id={queueStyles.queueAreaTitle}>Program Queue</h3>
             <div id={queueStyles.queues}>
                 <div id={queueStyles.queueList} className={queueStyles.queueSection}>
-                    {[...queueComponents]}
+                    <QueueSelectionContext.Provider value={{id: selected, updateId: (newId) => setSelected(newId)}}>
+                        {[...queueComponents]}
+                    </QueueSelectionContext.Provider>
                 </div>
                 <QueueStatusItem />
             </div>
