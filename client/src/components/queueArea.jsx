@@ -10,7 +10,7 @@ import QueueSelectionContext from './queueSelectionContext'
 const QueueArea = () => {
 
     const [queueComponents, setQueueComponents] = useState([])
-    const [selected, setSelected] = useState(0)
+    const [selected, setSelected] = useState({})
 
     fetchEventSource('http://localhost:8080/api/queuestatus', {
         onmessage(e) {
@@ -37,12 +37,12 @@ const QueueArea = () => {
         <div id={queueStyles.queueArea}>
             <h3 id={queueStyles.queueAreaTitle}>Program Queue</h3>
             <div id={queueStyles.queues}>
-                <div id={queueStyles.queueList} className={queueStyles.queueSection}>
-                    <QueueSelectionContext.Provider value={{id: selected, updateId: (newId) => setSelected(newId)}}>
-                        {[...queueComponents]}
-                    </QueueSelectionContext.Provider>
-                </div>
-                <QueueStatusItem />
+                <QueueSelectionContext.Provider value={{selectedProg: selected, updateProg: (newProg) => setSelected(newProg)}}>
+                    <div id={queueStyles.queueList} className={queueStyles.queueSection}>
+                            {[...queueComponents]}
+                    </div>
+                    <QueueStatusItem />
+                </QueueSelectionContext.Provider>
             </div>
         </div>
     )

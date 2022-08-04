@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 const QueueSelectionContext = createContext({
-    id: 0,
-    updateId: () => {}
+    selectedProg: {},
+    updateProg: () => {}
 })
 
 export default QueueSelectionContext
