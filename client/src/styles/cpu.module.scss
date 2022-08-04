@@ -1,0 +1,30 @@
+@import './variables.scss';
+
+#cpuStatusArea {
+    background-color: red;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title {
+    margin: 0;
+}
+
+table, td {
+    border: 1px solid $silver;
+    border-collapse: collapse;
+}
+
+table {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+td {
+    width: 50%;
+    text-align: center;
+}
