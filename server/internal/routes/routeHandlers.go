@@ -88,3 +88,23 @@ func HandleQueueStatus(c *gin.Context) {
 		return true
 	})
 }
+
+// Function that handles obtaining the status of the CPU
+func HandleCpuStatus(c *gin.Context) {
+	// Update users every 1 second
+	ticker := time.NewTicker(1 * time.Second)
+	defer func() {
+		ticker.Stop()
+	}()
+
+	// Stream the updated info to the user
+	c.Stream(func(w io.Writer) bool {
+		select {
+		case <-ticker.C:
+			// Send the "ping" event to the user with the updated queue
+			c.Header("Access-Control-Allow-Origin", "*")
+			c.SSEvent("ping", govmManager.GetStatus())
+		}
+		return true
+	})
+}
