@@ -21,11 +21,17 @@ const CpuStatus = () => {
         const hex = /[0-9ABCDEF]/gi
         let addrStr = e.target.value
         if (addrStr.match(hex)) {
-            let addr = parseInt(addrStr, 16)
-            console.log(status)
-            if (status !== undefined && addr < status.memory.ram.length) {
-                let val = status.memory.ram[addr]
-                memRef.current.innerHTML = hexString(val, 16)
+            let addr = parseInt(addrStr, 8)
+            if (status.memory !== undefined && addr < status.memory.ram.length) {
+                let val = new Uint32Array(1)
+                val[0] = status.memory.ram[addr]
+                for (let i = addr + 1; i < addr + 4 && i < status.memory.ram.length; i++) {
+                    let add = status.memory.ram[i]
+                    val[0] = val[0] << 8 | add
+                }
+                memRef.current.innerHTML = hexString(val[0], 8)
+            } else {
+                memRef.current.innerHTML = hexString(0, 8)
             }
         }
     }
@@ -40,9 +46,9 @@ const CpuStatus = () => {
                 </tr>
             </table>
             <div id={cpuStyles.memArea}>
-                <h3>Memory</h3>
+                <h3>Memory (Addr - Addr + 3)</h3>
                 <input type="text" placeholder="Address" size="16" maxLength="16" onChange={getMemoryAddress}></input>
-                <p ref={memRef}>0x0000000000000000</p>
+                <p ref={memRef}>0x00000000</p>
             </div>
         </div>
     )
