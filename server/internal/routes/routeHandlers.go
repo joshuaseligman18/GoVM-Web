@@ -71,8 +71,8 @@ func HandleAddProg(c *gin.Context) {
 
 // Function that handles obtaining the status of the queue
 func HandleQueueStatus(c *gin.Context) {
-	// Update users every 500 ms
-	ticker := time.NewTicker(500 * time.Millisecond)
+	// Update users every 1 second
+	ticker := time.NewTicker(1 * time.Second)
 	defer func() {
 		ticker.Stop()
 	}()
