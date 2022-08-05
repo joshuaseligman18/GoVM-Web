@@ -5,12 +5,13 @@ import QueueListItem from './queueListItem'
 
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import QueueStatusItem from './queueStatusItem'
-import QueueSelectionContext from './queueSelectionContext'
+import QueueContext from './queueSelectionContext'
 
 const QueueArea = () => {
 
     const [queueComponents, setQueueComponents] = useState([])
     const [selected, setSelected] = useState({})
+    const [queue, setQueue] = useState({})
 
     fetchEventSource('http://localhost:8080/api/queuestatus', {
         onmessage(e) {
@@ -33,6 +34,7 @@ const QueueArea = () => {
                 }
             });
             // Rerender the area with the new programs in the queue
+            setQueue(newData)
             setQueueComponents(newComponents)
         }
     })
@@ -41,12 +43,12 @@ const QueueArea = () => {
         <div id={queueStyles.queueArea}>
             <h3 id={queueStyles.queueAreaTitle}>Program Queue</h3>
             <div id={queueStyles.queues}>
-                <QueueSelectionContext.Provider value={{selectedProg: selected, updateProg: (newProg) => setSelected(newProg)}}>
+                <QueueContext.Provider value={{selectedProg: selected, updateProg: (newProg) => setSelected(newProg), queue: queue}}>
                     <div id={queueStyles.queueList} className={queueStyles.queueSection}>
                             {[...queueComponents]}
                     </div>
                     <QueueStatusItem />
-                </QueueSelectionContext.Provider>
+                </QueueContext.Provider>
             </div>
         </div>
     )

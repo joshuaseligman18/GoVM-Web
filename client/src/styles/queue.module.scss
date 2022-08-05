@@ -34,22 +34,40 @@
     border: 1px solid $silver;
     margin-top: 0.5%;
     margin-bottom: 0.5%;
+    display: flex;
     
-    h3 {
+    h3, p {
         color: $silver;
         font-size: 1rem;
         margin: 0;
         padding-left: 2.5%;
+        width: 50%;
     }
 
-    h3:hover {
-        cursor: pointer;
-        background-color: rgba($color: $silver, $alpha: 0.3);
+    p {
+        text-align: center;
     }
 }
 
+.queueListItem:hover {
+    cursor: pointer;
+    background-color: rgba($color: $silver, $alpha: 0.2);
+}
+
+.inProgress {
+    color: $blue !important;
+}
+
+.completed {
+    color: $green !important;
+}
+
+.pending {
+    color: $red !important;
+}
+
 .selected {
-    background-color: green;
+    background-color: rgba($color: $silver, $alpha: 0.2);
 }
 
 #statusItem {

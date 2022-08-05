@@ -14,6 +14,14 @@ func NewNode(data *RunStruct) *ProgNode {
 	return &node
 }
 
+// Function that creates a new node
+func NewNodeProg(data *Program) *ProgNode {
+	node := ProgNode{
+		Val: data,
+	}
+	return &node
+}
+
 // Gets the value of the node
 func (node *ProgNode) GetVal() *Program {
 	return node.Val

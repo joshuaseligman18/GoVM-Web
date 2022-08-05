@@ -25,6 +25,20 @@ func (queue *Queue) Enqueue(val *RunStruct) {
 	}
 }
 
+// Adds the value to the end of the queue
+func (queue *Queue) EnqueueProg(val *Program) {
+	newNode := NewNodeProg(val)
+	if queue.Head == nil {
+		queue.Head = newNode
+	} else {
+		cur := queue.Head
+		for cur.GetNext() != nil {
+			cur = cur.GetNext()
+		}
+		cur.SetNext(newNode)
+	}
+}
+
 // Removes the top element from the queue
 func (queue *Queue) Dequeue() *Program {
 	if queue.Head != nil {

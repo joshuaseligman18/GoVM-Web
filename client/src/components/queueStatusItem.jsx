@@ -1,11 +1,11 @@
 import queueStyles from './../styles/queue.module.scss'
-import QueueSelectionContext from './queueSelectionContext'
+import QueueContext from './queueSelectionContext'
 
 
 const QueueStatusItem = () => {
 
     return (
-        <QueueSelectionContext.Consumer>
+        <QueueContext.Consumer>
             {({selectedProg, updateProg}) => (
                 (Object.keys(selectedProg).length > 0) ?
                     <div id={queueStyles.statusItem} className={queueStyles.queueSection}>
@@ -19,7 +19,7 @@ const QueueStatusItem = () => {
                     </div>
 
             )}
-        </QueueSelectionContext.Consumer>
+        </QueueContext.Consumer>
     )
 }
 

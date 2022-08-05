@@ -1,8 +1,9 @@
 import { createContext } from "react";
 
-const QueueSelectionContext = createContext({
+const QueueContext = createContext({
     selectedProg: {},
-    updateProg: () => {}
+    updateProg: () => {},
+    queue: {}
 })
 
-export default QueueSelectionContext
+export default QueueContext

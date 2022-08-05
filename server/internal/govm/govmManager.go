@@ -1,6 +1,8 @@
 package govm
 
 import (
+	"time"
+
 	"github.com/joshuaseligman/GoVM-Web/server/internal/util"
 	"github.com/joshuaseligman/GoVM/pkg/hardware/memory"
 )
@@ -15,7 +17,7 @@ type GoVMManager struct {
 }
 
 var (
-	inProgressChan chan *util.Program = make(chan *util.Program, 1) // Channel to communicate the updates program in progress
+	inProgressChan chan *util.Program = make(chan *util.Program, 2) // Channel to communicate the updates program in progress
 )
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
@@ -38,6 +40,10 @@ func (govmManager GoVMManager) Start() {
 				govmManager.running = true
 				inProgressChan <- newProg
 				govmManager.memory.FlashProgram(newProg.Prog)
+				time.Sleep(5 * time.Second)
+				inProgressChan <- nil
+				govmManager.completedQueue.EnqueueProg(newProg)
+				govmManager.running = false
 			}
 		}
 	}
