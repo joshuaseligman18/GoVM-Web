@@ -14,6 +14,9 @@ type GoVMManager struct {
 	running bool // Variable for if it is running
 }
 
+var (
+	inProgressChan chan *util.Program = make(chan *util.Program, 1) // Channel to communicate the updates program in progress
+)
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
 	govmManager := GoVMManager {
@@ -33,8 +36,8 @@ func (govmManager GoVMManager) Start() {
 		if !govmManager.running {
 			if newProg := govmManager.pendingQueue.Dequeue(); newProg != nil {
 				govmManager.running = true
-				govmManager.inProgress = newProg
-				govmManager.memory.FlashProgram(govmManager.inProgress.Prog)
+				inProgressChan <- newProg
+				govmManager.memory.FlashProgram(newProg.Prog)
 			}
 		}
 	}
@@ -47,6 +50,9 @@ func (govmManager *GoVMManager) AddProgram(newProg *util.RunStruct) {
 
 // Gets the struct for the program status
 func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
+	if len(inProgressChan) > 0 {
+		govmManager.inProgress = <- inProgressChan
+	}
 	return &util.QueueStruct {
 		Pending: govmManager.pendingQueue.ToArray(),
 		InProgress: govmManager.inProgress,

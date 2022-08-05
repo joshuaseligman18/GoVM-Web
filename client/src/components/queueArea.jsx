@@ -16,9 +16,13 @@ const QueueArea = () => {
         onmessage(e) {
             // Get the data and old components
             let newData = JSON.parse(e.data)
+            let newDataArr = [...newData.completed]
+            if (newData.inProgress !== null) { newDataArr.push(newData.inProgress) }
+            newDataArr.push(...newData.pending)
+            
             let oldComponents = queueComponents
             let newComponents = []
-            newData.forEach(progItem => {
+            newDataArr.forEach(progItem => {
                 // If the old component already exists, we want to keep it
                 let result = oldComponents.filter((elem) => elem.props.prog.id === progItem.id)
                 if (result.length === 1) {
