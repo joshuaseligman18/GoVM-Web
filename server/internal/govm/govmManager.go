@@ -56,7 +56,10 @@ func (govmManager *GoVMManager) AddProgram(newProg *util.RunStruct) {
 
 // Gets the struct for the program status
 func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
-	if len(inProgressChan) > 0 {
+	if len(inProgressChan) == 2 {
+		<- inProgressChan
+		govmManager.inProgress = <- inProgressChan
+	} else if len(inProgressChan) == 1 {
 		govmManager.inProgress = <- inProgressChan
 	}
 	return &util.QueueStruct {
