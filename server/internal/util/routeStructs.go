@@ -16,3 +16,9 @@ type RunStruct struct {
 type StatusStruct struct {
 	Memory *memory.MemoryAPI `json:"memory"` // The memory to return
 }
+
+type QueueStruct struct {
+	Completed []*Program `json:"completed"`
+	InProgress *Program `json:"inProgress"`
+	Pending []*Program `json:"pending"`
+}

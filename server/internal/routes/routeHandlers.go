@@ -60,12 +60,10 @@ func HandleAddProg(c *gin.Context) {
 		var prog util.RunStruct
 		json.Unmarshal(raw, &prog)
 
-		govmManager.GetProgramQueue().Enqueue(&prog)
+		govmManager.AddProgram(&prog)
 
 		c.Header("Access-Control-Allow-Origin", "*")
-		c.JSON(http.StatusOK, gin.H {
-			"programQueue": govmManager.GetProgramQueue().ToArray(),
-		})
+		c.JSON(http.StatusOK, govmManager.GetQueues())
 	}
 }
 
@@ -83,7 +81,7 @@ func HandleQueueStatus(c *gin.Context) {
 		case <-ticker.C:
 			// Send the "ping" event to the user with the updated queue
 			c.Header("Access-Control-Allow-Origin", "*")
-			c.SSEvent("ping", govmManager.GetProgramQueue().ToArray())
+			c.SSEvent("ping", govmManager.GetQueues())
 		}
 		return true
 	})

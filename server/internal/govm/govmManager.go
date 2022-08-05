@@ -7,7 +7,9 @@ import (
 
 // The struct that will handle the programs and their execution
 type GoVMManager struct {
-	programQueue *util.Queue // The queue to run programs in
+	pendingQueue *util.Queue // The queue for pending programs
+	inProgress *util.Program // The program in progress
+	completedQueue *util.Queue // The queue of completed programs
 	memory *memory.Memory // The memory for the computer
 	running bool // Variable for if it is running
 }
@@ -15,7 +17,9 @@ type GoVMManager struct {
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
 	govmManager := GoVMManager {
-		programQueue: util.NewQueue(),
+		pendingQueue: util.NewQueue(),
+		inProgress: nil,
+		completedQueue: util.NewQueue(),
 		memory: memory.NewEmptyMemory(0x10000),
 		running: false,
 	}
@@ -27,17 +31,27 @@ func NewGoVMManager() *GoVMManager {
 func (govmManager GoVMManager) Start() {
 	for {
 		if !govmManager.running {
-			if newProg := govmManager.programQueue.Dequeue(); newProg != nil {
+			if newProg := govmManager.pendingQueue.Dequeue(); newProg != nil {
 				govmManager.running = true
-				govmManager.memory.FlashProgram(newProg.Prog)
+				govmManager.inProgress = newProg
+				govmManager.memory.FlashProgram(govmManager.inProgress.Prog)
 			}
 		}
 	}
 }
 
-// Gets the program queue
-func (govmManager *GoVMManager) GetProgramQueue() *util.Queue {
-	return govmManager.programQueue
+// Adds a program to the queue
+func (govmManager *GoVMManager) AddProgram(newProg *util.RunStruct) {
+	govmManager.pendingQueue.Enqueue(newProg)
+}
+
+// Gets the struct for the program status
+func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
+	return &util.QueueStruct {
+		Pending: govmManager.pendingQueue.ToArray(),
+		InProgress: govmManager.inProgress,
+		Completed: govmManager.completedQueue.ToArray(),
+	}
 }
 
 // Gets the API-compatible struct for the status
