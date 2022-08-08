@@ -101,8 +101,7 @@ func HandleCpuStatus(c *gin.Context) {
 		case <-ticker.C:
 			// Send the "ping" event to the user with the updated queue
 			c.Header("Access-Control-Allow-Origin", "*")
-			//c.SSEvent("ping", govmManager.GetStatus())
-			c.SSEvent("ping", "Hello")
+			c.SSEvent("ping", govmManager.GetStatus())
 		}
 		return true
 	})

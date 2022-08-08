@@ -21,6 +21,7 @@ type GoVMManager struct {
 var (
 	inProgressChan chan *util.Program = make(chan *util.Program, 2) // Channel to communicate the updates program in progress
 	completedChan chan *util.Program = make(chan *util.Program, 1) // Channel to buffer the program to be added to the completed queue when it is done running
+	statusChan chan []any = make(chan []any) // Channel to get most up-to-date information
 )
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
@@ -39,7 +40,7 @@ func NewGoVMManager() *GoVMManager {
 }
 
 // Function that starts the manager on the server
-func (govmManager GoVMManager) Start() {
+func (govmManager GoVMManager) Start() {	
 	for {
 		if !govmManager.running {
 			if newProg := govmManager.pendingQueue.Dequeue(); newProg != nil {
@@ -47,7 +48,8 @@ func (govmManager GoVMManager) Start() {
 				inProgressChan <- newProg
 				completedChan <- newProg
 				govmManager.memory.FlashProgram(newProg.Prog)
-				govmManager.clk.StartClock(1000)
+				// go govmManager.clk.StartClockAPI(1000, statusChan)
+				govmManager.clk.StartClockAPI(1000, statusChan)
 			}
 		} else if govmManager.clk.IsStopped() {
 			inProgressChan <- nil
@@ -81,7 +83,22 @@ func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
 
 // Gets the API-compatible struct for the status
 func (govmManager *GoVMManager) GetStatus() *util.StatusStruct {
+	defer func() {
+		if err := recover(); err != nil {
+			return
+		}
+	}()
+
+	data := <- statusChan
+	if data[0] == nil {
+		return &util.StatusStruct {
+			Cpu: &cpu.CpuAPI {},
+		}
+	}
+
+	var cpuStatus *cpu.CpuAPI = data[0].(*cpu.CpuAPI)
+
 	return &util.StatusStruct {
-		Memory: govmManager.memory.ConvertAPI(),
+		Cpu: cpuStatus,
 	}
 }

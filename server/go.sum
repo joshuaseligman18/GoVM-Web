@@ -28,6 +28,12 @@ github.com/joshuaseligman/GoVM v0.7.0 h1:5eSDngv+7Alus8R95BSIZ7DUzwM1BeHnj3shMyX
 github.com/joshuaseligman/GoVM v0.7.0/go.mod h1:A5xLX71S7rgcmkkXid4tZyO0OnQmyhhTrIiAw4FW0vU=
 github.com/joshuaseligman/GoVM v0.7.1 h1:f5atjx3g8ELnebdRfT8LOs+v0TdzM3VWiVZRC0yQQzg=
 github.com/joshuaseligman/GoVM v0.7.1/go.mod h1:A5xLX71S7rgcmkkXid4tZyO0OnQmyhhTrIiAw4FW0vU=
+github.com/joshuaseligman/GoVM v0.7.2 h1:zyOy5lCpraEsQ3VmMmx9n4mgpFSdViq8LzrVFWSWrf8=
+github.com/joshuaseligman/GoVM v0.7.2/go.mod h1:A5xLX71S7rgcmkkXid4tZyO0OnQmyhhTrIiAw4FW0vU=
+github.com/joshuaseligman/GoVM v0.7.3 h1:ZQWdBdIJKXuLflw26opxaSoHUDAF1NveOVCknqa8rMU=
+github.com/joshuaseligman/GoVM v0.7.3/go.mod h1:A5xLX71S7rgcmkkXid4tZyO0OnQmyhhTrIiAw4FW0vU=
+github.com/joshuaseligman/GoVM v0.7.4 h1:JtnQoj9H551V2z37SK5uIJgrrMiRvK/llKV/YK+DeM0=
+github.com/joshuaseligman/GoVM v0.7.4/go.mod h1:A5xLX71S7rgcmkkXid4tZyO0OnQmyhhTrIiAw4FW0vU=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
