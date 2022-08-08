@@ -1,9 +1,9 @@
 package govm
 
 import (
-	"time"
-
 	"github.com/joshuaseligman/GoVM-Web/server/internal/util"
+	"github.com/joshuaseligman/GoVM/pkg/hardware/clock"
+	"github.com/joshuaseligman/GoVM/pkg/hardware/cpu"
 	"github.com/joshuaseligman/GoVM/pkg/hardware/memory"
 )
 
@@ -13,11 +13,14 @@ type GoVMManager struct {
 	inProgress *util.Program // The program in progress
 	completedQueue *util.Queue // The queue of completed programs
 	memory *memory.Memory // The memory for the computer
+	cpu *cpu.Cpu // The CPU for the computer
+	clk *clock.Clock // The clock for the computer
 	running bool // Variable for if it is running
 }
 
 var (
 	inProgressChan chan *util.Program = make(chan *util.Program, 2) // Channel to communicate the updates program in progress
+	completedChan chan *util.Program = make(chan *util.Program, 1) // Channel to buffer the program to be added to the completed queue when it is done running
 )
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
@@ -26,8 +29,11 @@ func NewGoVMManager() *GoVMManager {
 		inProgress: nil,
 		completedQueue: util.NewQueue(),
 		memory: memory.NewEmptyMemory(0x10000),
+		clk: clock.NewClock(),
 		running: false,
 	}
+	govmManager.cpu = cpu.NewCpu(govmManager.memory, govmManager.clk)
+	govmManager.clk.AddClockListener(govmManager.cpu)
 	go govmManager.Start()
 	return &govmManager
 }
@@ -39,12 +45,16 @@ func (govmManager GoVMManager) Start() {
 			if newProg := govmManager.pendingQueue.Dequeue(); newProg != nil {
 				govmManager.running = true
 				inProgressChan <- newProg
+				completedChan <- newProg
 				govmManager.memory.FlashProgram(newProg.Prog)
-				time.Sleep(5 * time.Second)
-				inProgressChan <- nil
-				govmManager.completedQueue.EnqueueProg(newProg)
-				govmManager.running = false
+				govmManager.clk.StartClock(1000)
 			}
+		} else if govmManager.clk.IsStopped() {
+			inProgressChan <- nil
+			govmManager.cpu.ResetCpu()
+			govmManager.memory.ResetMemory()
+			govmManager.completedQueue.EnqueueProg(<- completedChan)
+			govmManager.running = false
 		}
 	}
 }
