@@ -7,7 +7,7 @@
     height: 40%;
 }
 
-#queueAreaTitle {
+#queueAreaTitle, #note {
     text-align: center;
     margin: 0;
     height: 10%;
@@ -16,7 +16,7 @@
 #queues {
     display: flex;
     align-items: center;
-    height: 90%;
+    height: 80%;
 }
 
 .queueSection {

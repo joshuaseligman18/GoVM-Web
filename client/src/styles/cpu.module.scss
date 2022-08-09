@@ -6,12 +6,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    p {
-        overflow-wrap: break-word;
-    }
 }
 
 #title {
     margin: 0;
+}
+
+#statusTable {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 55%;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+
+    border-collapse: collapse;
+
+    p {
+        width: 25%;
+        text-align: center;
+        font-size: 0.75rem;
+        margin: 0;
+        line-height: 0.5rem;
+    }
 }
