@@ -30,10 +30,10 @@ func NewGoVMManager() *GoVMManager {
 		pendingQueue:   util.NewQueue(),
 		inProgress:     nil,
 		completedQueue: util.NewQueue(),
-		memory:         memory.NewEmptyMemory(0x10000),
 		clk:            clock.NewClock(),
 		running:        false,
 	}
+	govmManager.memory = memory.NewEmptyMemory(0x10000, govmManager.clk)
 	govmManager.cpu = cpu.NewCpu(govmManager.memory, govmManager.clk)
 	govmManager.clk.AddClockListener(govmManager.cpu)
 	go govmManager.Start()
