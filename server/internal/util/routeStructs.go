@@ -11,18 +11,24 @@ type ProgStruct struct {
 
 // Struct to define the request body for /api/addprog
 type RunStruct struct {
-	Binary []uint32 `json:"binaryProg"` // The binary program
-	ProgName string `json:"progName"` // The name of the program
+	Binary   []uint32 `json:"binaryProg"` // The binary program
+	ProgName string   `json:"progName"`   // The name of the program
 }
 
 // Struct to define the output of the status of the running program
-type StatusStruct struct {
+type CpuStatusStruct struct {
 	Cpu *cpu.CpuAPI `json:"cpu"` // The CPU and its status
 }
 
 // Struct to define the output of the queue status
 type QueueStruct struct {
-	Completed []*Program `json:"completed"`
-	InProgress *Program `json:"inProgress"`
-	Pending []*Program `json:"pending"`
+	Completed  []*Program `json:"completed"`
+	InProgress *Program   `json:"inProgress"`
+	Pending    []*Program `json:"pending"`
+}
+
+// The overall status struct for both the queues and the CPU status
+type StatusStruct struct {
+	Queues *QueueStruct `json:"queues"`
+	CpuStatus *CpuStatusStruct `json:"cpuStatus"`
 }

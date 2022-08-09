@@ -8,11 +8,11 @@ const CpuStatus = () => {
 
     const [status, setStatus] = useState({})
 
-    fetchEventSource('http://localhost:8080/api/cpustatus', {
-        onmessage(e) {
-            setStatus({...JSON.parse(e.data)})
-        }
-    })
+    // fetchEventSource('http://localhost:8080/api/cpustatus', {
+    //     onmessage(e) {
+    //         setStatus({...JSON.parse(e.data)})
+    //     }
+    // })
 
     return (
         <div id={cpuStyles.cpuStatusArea}>

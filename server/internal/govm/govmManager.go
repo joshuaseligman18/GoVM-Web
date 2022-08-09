@@ -9,29 +9,30 @@ import (
 
 // The struct that will handle the programs and their execution
 type GoVMManager struct {
-	pendingQueue *util.Queue // The queue for pending programs
-	inProgress *util.Program // The program in progress
-	completedQueue *util.Queue // The queue of completed programs
-	memory *memory.Memory // The memory for the computer
-	cpu *cpu.Cpu // The CPU for the computer
-	clk *clock.Clock // The clock for the computer
-	running bool // Variable for if it is running
+	pendingQueue   *util.Queue    // The queue for pending programs
+	inProgress     *util.Program  // The program in progress
+	completedQueue *util.Queue    // The queue of completed programs
+	memory         *memory.Memory // The memory for the computer
+	cpu            *cpu.Cpu       // The CPU for the computer
+	clk            *clock.Clock   // The clock for the computer
+	running        bool           // Variable for if it is running
 }
 
 var (
 	inProgressChan chan *util.Program = make(chan *util.Program, 2) // Channel to communicate the updates program in progress
-	completedChan chan *util.Program = make(chan *util.Program, 1) // Channel to buffer the program to be added to the completed queue when it is done running
-	statusChan chan []any = make(chan []any) // Channel to get most up-to-date information
+	completedChan  chan *util.Program = make(chan *util.Program, 1) // Channel to buffer the program to be added to the completed queue when it is done running
+	statusChan     chan []any         = make(chan []any)            // Channel to get most up-to-date information
 )
+
 // Function that creates a new GoVM Manager
 func NewGoVMManager() *GoVMManager {
 	govmManager := GoVMManager {
-		pendingQueue: util.NewQueue(),
-		inProgress: nil,
+		pendingQueue:   util.NewQueue(),
+		inProgress:     nil,
 		completedQueue: util.NewQueue(),
-		memory: memory.NewEmptyMemory(0x10000),
-		clk: clock.NewClock(),
-		running: false,
+		memory:         memory.NewEmptyMemory(0x10000),
+		clk:            clock.NewClock(),
+		running:        false,
 	}
 	govmManager.cpu = cpu.NewCpu(govmManager.memory, govmManager.clk)
 	govmManager.clk.AddClockListener(govmManager.cpu)
@@ -40,7 +41,7 @@ func NewGoVMManager() *GoVMManager {
 }
 
 // Function that starts the manager on the server
-func (govmManager GoVMManager) Start() {	
+func (govmManager GoVMManager) Start() {
 	for {
 		if !govmManager.running {
 			if newProg := govmManager.pendingQueue.Dequeue(); newProg != nil {
@@ -48,14 +49,13 @@ func (govmManager GoVMManager) Start() {
 				inProgressChan <- newProg
 				completedChan <- newProg
 				govmManager.memory.FlashProgram(newProg.Prog)
-				// go govmManager.clk.StartClockAPI(1000, statusChan)
 				govmManager.clk.StartClockAPI(1000, statusChan)
 			}
 		} else if govmManager.clk.IsStopped() {
 			inProgressChan <- nil
 			govmManager.cpu.ResetCpu()
 			govmManager.memory.ResetMemory()
-			govmManager.completedQueue.EnqueueProg(<- completedChan)
+			govmManager.completedQueue.EnqueueProg(<-completedChan)
 			govmManager.running = false
 		}
 	}
@@ -69,36 +69,36 @@ func (govmManager *GoVMManager) AddProgram(newProg *util.RunStruct) {
 // Gets the struct for the program status
 func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
 	if len(inProgressChan) == 2 {
-		<- inProgressChan
-		govmManager.inProgress = <- inProgressChan
+		<-inProgressChan
+		govmManager.inProgress = <-inProgressChan
 	} else if len(inProgressChan) == 1 {
-		govmManager.inProgress = <- inProgressChan
+		govmManager.inProgress = <-inProgressChan
 	}
-	return &util.QueueStruct {
-		Pending: govmManager.pendingQueue.ToArray(),
+	return &util.QueueStruct{
+		Pending:    govmManager.pendingQueue.ToArray(),
 		InProgress: govmManager.inProgress,
-		Completed: govmManager.completedQueue.ToArray(),
+		Completed:  govmManager.completedQueue.ToArray(),
 	}
 }
 
 // Gets the API-compatible struct for the status
-func (govmManager *GoVMManager) GetStatus() *util.StatusStruct {
+func (govmManager *GoVMManager) GetStatus() *util.CpuStatusStruct {
 	defer func() {
 		if err := recover(); err != nil {
 			return
 		}
 	}()
 
-	data := <- statusChan
+	data := <-statusChan
 	if data[0] == nil {
-		return &util.StatusStruct {
-			Cpu: &cpu.CpuAPI {},
+		return &util.CpuStatusStruct{
+			Cpu: &cpu.CpuAPI{},
 		}
 	}
 
 	var cpuStatus *cpu.CpuAPI = data[0].(*cpu.CpuAPI)
 
-	return &util.StatusStruct {
+	return &util.CpuStatusStruct{
 		Cpu: cpuStatus,
 	}
 }
