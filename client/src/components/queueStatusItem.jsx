@@ -8,7 +8,12 @@ const QueueStatusItem = () => {
         const res = await fetch(`/api/finalstatus/${id}`)
         const data = await res.json()
 
-        console.log(data)
+        const downloadElem = document.createElement('a')
+        const file = new Blob([JSON.stringify(data)], { type: "text/plain" })
+        downloadElem.href = URL.createObjectURL(file)
+        downloadElem.download = `${id}.json`
+        downloadElem.click()
+        downloadElem.remove()
     }
 
     return (
