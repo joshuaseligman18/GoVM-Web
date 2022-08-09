@@ -89,16 +89,23 @@ func (govmManager *GoVMManager) GetStatus() *util.CpuStatusStruct {
 		}
 	}()
 
-	data := <-statusChan
-	if data[0] == nil {
-		return &util.CpuStatusStruct{
-			Cpu: &cpu.CpuAPI{},
+	if govmManager.inProgress != nil {
+		data := <-statusChan
+		if data[0] == nil {
+			return &util.CpuStatusStruct{
+				Cpu: &cpu.CpuAPI{},
+			}
+		}
+		
+		var cpuStatus *cpu.CpuAPI = data[0].(*cpu.CpuAPI)
+		
+		return &util.CpuStatusStruct {
+			Cpu: cpuStatus,
+		}
+	} else {
+		return &util.CpuStatusStruct {
+			Cpu: nil,
 		}
 	}
-
-	var cpuStatus *cpu.CpuAPI = data[0].(*cpu.CpuAPI)
-
-	return &util.CpuStatusStruct{
-		Cpu: cpuStatus,
-	}
 }
+		

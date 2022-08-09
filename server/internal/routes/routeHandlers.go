@@ -70,41 +70,9 @@ func HandleAddProg(c *gin.Context) {
 func HandleStatus(c *gin.Context) {
 	status := util.StatusStruct {
 		Queues: govmManager.GetQueues(),
-		CpuStatus: nil, //govmManager.GetStatus(),
+		CpuStatus: govmManager.GetStatus(),
 	}
 	// Send the "ping" event to the user with the updated status
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, status)
 }
-
-
-// // Function that handles obtaining the status of the queue
-// func HandleQueueStatus(c *gin.Context) {
-// 	// Update users every 1 second
-// 	ticker := time.NewTicker(1 * time.Second)
-// 	defer func() {
-// 		ticker.Stop()
-// 	}()
-
-// 	// Stream the updated info to the user
-// 	c.Stream(func(w io.Writer) bool {
-// 		select {
-// 		case <-ticker.C:
-// 			// Send the "ping" event to the user with the updated queue
-// 			c.Header("Access-Control-Allow-Origin", "*")
-// 			c.SSEvent("ping", govmManager.GetQueues())
-// 		}
-// 		return true
-// 	})
-// }
-
-// // Function that handles obtaining the status of the CPU
-// func HandleCpuStatus(c *gin.Context) {
-// 	// Stream the updated info to the user
-// 	c.Stream(func(w io.Writer) bool {
-// 		// Send the "ping" event to the user with the updated queue
-// 		c.Header("Access-Control-Allow-Origin", "*")
-// 		c.SSEvent("ping", govmManager.GetStatus())
-// 		return false
-// 	})
-// }
