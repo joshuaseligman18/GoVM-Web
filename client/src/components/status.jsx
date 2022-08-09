@@ -18,7 +18,6 @@ const Status = () => {
                 }
             })
             const data = await res.json()
-            console.log(data)
 
             let newData = data.queues
             let newDataArr = [...newData.completed]
