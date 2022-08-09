@@ -4,3 +4,33 @@
     flex-direction: column;
     flex-wrap: wrap;
 }
+
+#githubArea {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    height: 10%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#githubLogo {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    filter: invert(100%);
+}
+
+#githubLinksArea {
+    margin-left: 2.5%;
+    font-size: 0.75rem;
+}
+
+.githubLink {
+    color: $silver;
+}
+
+.githubLink:hover {
+    color: $red;
+}

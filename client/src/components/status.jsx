@@ -39,7 +39,7 @@ const Status = () => {
             // Rerender the area with the new programs in the queue
             setStatus(data)
             setQueueComponents(newComponents)
-        }, 1000)
+        }, 500)
         return () => clearInterval(interval)
     }, [])
 
