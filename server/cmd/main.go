@@ -13,6 +13,7 @@ func main() {
 	r.POST("/api/asmprog", routes.HandleAsmProg)
 	r.POST("/api/addprog", routes.HandleAddProg)
 	r.GET("/api/status", routes.HandleStatus)
+	r.GET("/api/finalstatus/:id", routes.HandleFinalStatus)
 
 	r.Use(cors.Default())
 	r.Run(":8080")

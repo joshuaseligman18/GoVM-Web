@@ -22,6 +22,8 @@ var (
 	inProgressChan chan *util.Program = make(chan *util.Program, 2) // Channel to communicate the updates program in progress
 	completedChan  chan *util.Program = make(chan *util.Program, 1) // Channel to buffer the program to be added to the completed queue when it is done running
 	statusChan     chan []any         = make(chan []any)            // Channel to get most up-to-date information
+	finalStatusChan chan *util.FinalStatusStruct = make(chan *util.FinalStatusStruct, 1) // The channel to buffer the final status information
+	finalStatuses []*util.FinalStatusStruct = make([]*util.FinalStatusStruct, 0) // Array to keep track of the final statuses
 )
 
 // Function that creates a new GoVM Manager
@@ -53,9 +55,15 @@ func (govmManager GoVMManager) Start() {
 			}
 		} else if govmManager.clk.IsStopped() {
 			inProgressChan <- nil
+			status := govmManager.cpu.ConvertAPI()
 			govmManager.cpu.ResetCpu()
 			govmManager.memory.ResetMemory()
-			govmManager.completedQueue.EnqueueProg(<-completedChan)
+			prog := <-completedChan
+			govmManager.completedQueue.EnqueueProg(prog)
+			finalStatusChan <- &util.FinalStatusStruct{
+				Program: prog,
+				FinalCpu: status,
+			}
 			govmManager.running = false
 		}
 	}
@@ -68,6 +76,10 @@ func (govmManager *GoVMManager) AddProgram(newProg *util.RunStruct) {
 
 // Gets the struct for the program status
 func (govmManager *GoVMManager) GetQueues() *util.QueueStruct {
+	if len(finalStatusChan) == 1 {
+		finalStatuses = append(finalStatuses, <-finalStatusChan)
+	}
+
 	if len(inProgressChan) == 2 {
 		<-inProgressChan
 		govmManager.inProgress = <-inProgressChan
@@ -108,4 +120,13 @@ func (govmManager *GoVMManager) GetStatus() *util.CpuStatusStruct {
 		}
 	}
 }
-		
+
+// Function that gets the final status of the program with the matching id
+func GetFinalStatus(id int) *util.FinalStatusStruct {
+	for i := 0; i < len(finalStatuses); i++ {
+		if int32(id) == finalStatuses[i].Program.Id {
+			return finalStatuses[i]
+		}
+	}
+	return nil
+}

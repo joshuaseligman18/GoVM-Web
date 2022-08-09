@@ -32,3 +32,9 @@ type StatusStruct struct {
 	Queues *QueueStruct `json:"queues"`
 	CpuStatus *CpuStatusStruct `json:"cpuStatus"`
 }
+
+// The struct for the final status of a running program
+type FinalStatusStruct struct {
+	Program *Program `json:"prog"`
+	FinalCpu *cpu.CpuAPI `json:"finalStatus"`
+}

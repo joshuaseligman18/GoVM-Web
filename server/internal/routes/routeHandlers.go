@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joshuaseligman/GoVM-Web/server/internal/govm"
@@ -75,4 +76,21 @@ func HandleStatus(c *gin.Context) {
 	// Send the "ping" event to the user with the updated status
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, status)
+}
+
+func HandleFinalStatus(c *gin.Context) {
+	idStr := c.Param("id")
+
+	id, err := strconv.Atoi(idStr)
+
+	if err == nil {
+		finalStatus := govm.GetFinalStatus(id)
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.JSON(http.StatusOK, finalStatus)
+	} else {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.JSON(http.StatusBadRequest, gin.H {
+			"msg": "Invalid ID",
+		})
+	}
 }
