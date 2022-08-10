@@ -22,10 +22,8 @@ github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaS
 github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
-github.com/joshuaseligman/GoVM v1.0.0 h1:n6duFxk+cTs4sLhcTBs4IrJacqg8TNVqk5hojvY2K0Y=
-github.com/joshuaseligman/GoVM v1.0.0/go.mod h1:TuIK5VQLSoxKWnZGIB5acWPwGE9nGV6wIBkaWqgNpEo=
-github.com/joshuaseligman/GoVM v1.0.1 h1:CZxSDNBH5NKQ4Gq45sjfdXAl6ZDeXDP84xLKKVqo7PU=
-github.com/joshuaseligman/GoVM v1.0.1/go.mod h1:p1rEhQ/Ip7rsfe4bE8aSvafJN0uiACfE5e+gUQqj4SU=
+github.com/joshuaseligman/GoVM v1.0.2 h1:TWPDXwVbiGO8dFEe+7BtWdgZkHdknEUpN7Hjedwxug4=
+github.com/joshuaseligman/GoVM v1.0.2/go.mod h1:p1rEhQ/Ip7rsfe4bE8aSvafJN0uiACfE5e+gUQqj4SU=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
