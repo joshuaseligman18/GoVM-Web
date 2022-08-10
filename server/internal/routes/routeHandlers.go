@@ -78,16 +78,19 @@ func HandleStatus(c *gin.Context) {
 	c.JSON(http.StatusOK, status)
 }
 
+// Function that handles returning the final status of an executed program
 func HandleFinalStatus(c *gin.Context) {
+	// Get the id from the path parameter and convert it to an integer
 	idStr := c.Param("id")
-
 	id, err := strconv.Atoi(idStr)
 
 	if err == nil {
+		// Get the status and return it
 		finalStatus := govm.GetFinalStatus(id)
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusOK, finalStatus)
 	} else {
+		// Return invalid ID
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusBadRequest, gin.H {
 			"msg": "Invalid ID",

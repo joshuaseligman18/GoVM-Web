@@ -22,19 +22,19 @@ type CpuStatusStruct struct {
 
 // Struct to define the output of the queue status
 type QueueStruct struct {
-	Completed  []*Program `json:"completed"`
-	InProgress *Program   `json:"inProgress"`
-	Pending    []*Program `json:"pending"`
+	Completed  []*Program `json:"completed"` // The array of completed programs
+	InProgress *Program   `json:"inProgress"` // The currently executing program
+	Pending    []*Program `json:"pending"` // The array of pending programs
 }
 
 // The overall status struct for both the queues and the CPU status
 type StatusStruct struct {
-	Queues *QueueStruct `json:"queues"`
-	CpuStatus *CpuStatusStruct `json:"cpuStatus"`
+	Queues *QueueStruct `json:"queues"` // The queue struct for the queues
+	CpuStatus *CpuStatusStruct `json:"cpuStatus"` // The CPU status struct for the CPU
 }
 
 // The struct for the final status of a running program
 type FinalStatusStruct struct {
-	Program *Program `json:"prog"`
-	FinalCpu *cpu.CpuAPI `json:"finalStatus"`
+	Program *Program `json:"prog"` // The program information
+	FinalCpu *cpu.CpuAPI `json:"finalStatus"` // The final CPU status
 }

@@ -12,6 +12,7 @@ const ProgramEditor = () => {
 	const runBtnRef = useRef(null)
 	const progNameRef = useRef(null)
 
+	// Variable to store the info of the most recently assembled program
 	let lastProg = null
 
 	// Function that calls the API to assemble the program and output the binary
@@ -70,6 +71,7 @@ const ProgramEditor = () => {
 				progName: progNameRef.current.value
 			})
 		})
+		// Reset the name field
 		progNameRef.current.value = ''
 	}
 
