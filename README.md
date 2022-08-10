@@ -1,1 +1,5 @@
 # GoVM-Web
+
+GoVM-Web is a website written with React.js and JavaScript in the front-end and Gin and Go in the back-end. The website utilizes the [GoVM package](https://github.com/joshuaseligman/GoVM) that I also wrote. The website contains a place to write assembly for the processor, which is assembled with an API call to the server. The server then responds with the binary, which the package can take as an input and execute. While a program is running, the current value of the various registers can be viewed on the webpage, and the final snapshot of these registers before the program halts can be downloaded upon program completion.
+
+To view the website, run the following command: `docker compose up` and open localhost:3000 in a web browser. Individual API calls can also be made as the API will be running on port 8080.

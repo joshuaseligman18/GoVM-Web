@@ -38,6 +38,8 @@ github.com/joshuaseligman/GoVM v0.7.5 h1:WCZ+Yn8ooH6V+6kXdiaQPabhwG7HEcS8HNv6Ye0
 github.com/joshuaseligman/GoVM v0.7.5/go.mod h1:p1rEhQ/Ip7rsfe4bE8aSvafJN0uiACfE5e+gUQqj4SU=
 github.com/joshuaseligman/GoVM v0.7.6 h1:MhSkWLfDTzN7kfwR1tmiu6tfmdJO6lXfvv8MXjN6Czs=
 github.com/joshuaseligman/GoVM v0.7.6/go.mod h1:p1rEhQ/Ip7rsfe4bE8aSvafJN0uiACfE5e+gUQqj4SU=
+github.com/joshuaseligman/GoVM v0.7.7 h1:ltYzu9Wo2PDGzxWDrnnvXWlNL+EPWtsayxIpmZbcmOY=
+github.com/joshuaseligman/GoVM v0.7.7/go.mod h1:p1rEhQ/Ip7rsfe4bE8aSvafJN0uiACfE5e+gUQqj4SU=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
