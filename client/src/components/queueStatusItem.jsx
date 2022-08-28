@@ -1,5 +1,5 @@
 import queueStyles from './../styles/queue.module.scss'
-import QueueContext from './queueSelectionContext'
+import QueueContext from './queueContext'
 
 // Component for the status of the selected queue
 const QueueStatusItem = () => {

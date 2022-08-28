@@ -3,7 +3,7 @@ import { useState } from 'react'
 import queueStyles from './../styles/queue.module.scss'
 
 import QueueStatusItem from './queueStatusItem'
-import QueueContext from './queueSelectionContext'
+import QueueContext from './queueContext'
 
 // Component for the queue area
 const QueueArea = (props) => {

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import queueStyles from './../styles/queue.module.scss'
-import QueueContext from './queueSelectionContext'
+import QueueContext from './queueContext'
 
 // Component for a specific item in the queue
 const QueueListItem = (props) => {
